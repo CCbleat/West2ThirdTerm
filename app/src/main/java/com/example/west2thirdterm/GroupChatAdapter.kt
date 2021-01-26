@@ -1,5 +1,6 @@
 package com.example.west2thirdterm
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -19,24 +20,26 @@ class GroupChatAdapter(val groupChatList: List<GroupChat>) : RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.group_chat_item, parent, false)
         val viewHolder = ViewHolder(view)
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition
-            val fruit = groupChatList[position]
-            Toast.makeText(parent.context, "you clicked view ${fruit.name}", Toast.LENGTH_SHORT).show()
-        }
+//        val intent2 = Intent(this, DetailActivity::class.java)
+//        viewHolder.itemView.setOnClickListener {
+//            val position = viewHolder.adapterPosition
+//            val itemPostion = groupChatList[position]
+//            Toast.makeText(parent.context, "you clicked view ${itemPostion.name}", Toast.LENGTH_SHORT).show()
+//        }
         viewHolder.groupImage.setOnClickListener {
             val position = viewHolder.adapterPosition
-            val fruit = groupChatList[position]
-            Toast.makeText(parent.context, "you clicked image ${fruit.name}", Toast.LENGTH_SHORT).show()
+            val groupMes = groupChatList[position]
+//            startActivity 不会用view写这个，555
+            Toast.makeText(parent.context, "Detail Message \nGroupName：${groupMes.name} \nGroupFounder: ${groupMes.Founder}", Toast.LENGTH_SHORT).show()
         }
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fruit = groupChatList[position]
-        holder.groupImage.setImageResource(fruit.imageID)
-        holder.groupName.text = fruit.name
-        holder.groupFounder.text = fruit.Founder
+        val group_chat = groupChatList[position]
+        holder.groupImage.setImageResource(group_chat.imageID)
+        holder.groupName.text = group_chat.name
+        holder.groupFounder.text = group_chat.Founder
     }
 
     override fun getItemCount() = groupChatList.size
